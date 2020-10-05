@@ -15,4 +15,6 @@ module.exports = (app) => {
   app.get('/getAnggota', controller.get.getAnggota);
   app.get('/getPetugas', controller.get.getPetugas);
   app.get('/getLokasi', controller.get.getLokasi);
+  app.post('/addBuku', controller.post.addBuku);
+  app.delete('/deleteBuku/:id', controller.delete.deleteBuku);
 };
