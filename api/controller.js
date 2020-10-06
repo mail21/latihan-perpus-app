@@ -30,27 +30,18 @@ module.exports = {
         .select('kuantitas', 'id_lokasi')
         .where({ id: idBuku })
         .then((res) => res);
-      const kuantitasAwal = await table('lokasi')
-        .select('kuantitas')
-        .where({ id: dataBuku[0].id_lokasi })
-        .then((res) => res[0].kuantitas);
       await table('buku').where({ id: idBuku }).del();
-      res.send(`buku dengan id ${idBuku} berhasil dihapus`);
       await table('lokasi')
         .where({ id: dataBuku[0].id_lokasi })
-        .update({ kuantitas: kuantitasAwal - dataBuku[0].kuantitas });
+        .decrement('kuantitas', dataBuku[0].kuantitas);
+      res.send(`buku dengan id ${idBuku} berhasil dihapus`);
     },
   },
   post: {
     addBuku: async (req, res) => {
-      const { id, id_lokasi, judul, pengarang, kuantitas } = req.body;
-      let kuantitasAwal = table.select('kuantitas').from('lokasi').where('id', id_lokasi);
-      kuantitasAwal = await kuantitasAwal.then((data) => data[0].kuantitas);
+      const { id_lokasi, kuantitas } = req.body;
       await table('buku').insert(req.body);
-      await table('lokasi')
-        .where({ id: id_lokasi })
-        .update({ kuantitas: kuantitasAwal + kuantitas })
-        .then((res) => console.log(res));
+      await table('lokasi').where({ id: id_lokasi }).increment('kuantitas', kuantitas);
       res.send('sukses');
     },
   },
