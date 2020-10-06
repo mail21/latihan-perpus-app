@@ -1,0 +1,17 @@
+.card-book {
+  border: 1px solid black;
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-judul {
+  flex: 2;
+}
+.card-pengarang {
+  flex: 2;
+}
+
+.card-desc {
+  flex: 1;
+}
