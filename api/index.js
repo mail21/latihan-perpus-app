@@ -9,4 +9,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes')(app);
 
-app.listen(3000, () => console.log('Masuk ke server'));
+app.listen(3001, () => console.log('Masuk ke server'));
