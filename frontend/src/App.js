@@ -3,18 +3,20 @@ import './App.css';
 import CardBook from './component/CardBook/CardBook';
 import Modal from './component/Modal/Modal';
 import axios from 'axios';
+import { context } from './context';
 
 function App() {
   const [allBook, setAllBook] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { URL } = context;
   useEffect(() => {
-    axios.get('http://localhost:3000/getBuku').then((res) => setAllBook(res.data));
-  });
+    axios.get(`${URL}/getBuku`).then((res) => setAllBook(res.data));
+  }, []);
 
   const deleteBook = (id) => {
     let r = window.confirm('Are you Sure??');
     if (r == true) {
-      axios.delete(`http://localhost:3000/deleteBuku/${id}`);
+      axios.delete(`${URL}/deleteBuku/${id}`);
     }
   };
 

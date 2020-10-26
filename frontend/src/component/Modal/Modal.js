@@ -1,11 +1,11 @@
 import React from 'react';
 import './Modal.css';
 import axios from 'axios';
+import { context } from './../../context';
 
 function Modal({ isModalOpen, set }) {
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target[0].value);
     const data = {
       id: e.target[0].value,
       id_lokasi: e.target[1].value,
@@ -13,7 +13,7 @@ function Modal({ isModalOpen, set }) {
       pengarang: e.target[3].value,
       kuantitas: e.target[4].value,
     };
-    axios.post('http://localhost:3000/addBuku', data);
+    axios.post(`${context.URL}/addBuku`, data);
     set(false);
   };
 
